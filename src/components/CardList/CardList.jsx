@@ -1,40 +1,39 @@
+import { useEffect, useState } from 'react';
 import Card from '../Card/Card';
 import getDeckOfCards from '../../utils/makeDeckOfCard';
 import './CardList.css';
-import { useEffect, useState } from 'react';
+
 const CardList = () => {
   const [deck, setDeck] = useState([]);
-  const [selectCards, setSelectCards] = useState([]);
+  const [selectCard, setSelectCard] = useState(null);
 
-  const getSelectCard = (obj) => {
-    //когда вибраніх кард дві ми перевіряемо чи однакові вони якщо так тоді залищаемо їх видемімі та очищуемо масів
-    // ящо карті не однакові тоді закріваемо
-    obj.handleVisible('select');
+  const getSelectCard = ({ number, handleVisible }) => {
+    handleVisible('select');
+    const { number: selectCardNumber, handleVisible: selectCardHV } =
+      selectCard || {};
 
-    if (selectCards.length === 1) {
-      if (selectCards[0].number !== obj.number) {
-        const copy = [...selectCards, obj];
+    if (selectCard) {
+      if (selectCardNumber !== number) {
         setTimeout(() => {
-          copy.forEach((item) => item.handleVisible('hide'));
+          handleVisible('hide');
+          selectCardHV('hide');
         }, 500);
-
-        setSelectCards([]);
+        setSelectCard(null);
       } else {
-        const copy = [...selectCards, obj];
-
-        copy.forEach((item) => item.handleVisible('visible'));
-
-        setSelectCards([]);
+        handleVisible('visible');
+        selectCardHV('visible');
+        setSelectCard(null);
       }
     } else {
-      setSelectCards([...selectCards, obj]);
+      setSelectCard({ number, handleVisible });
     }
   };
 
   useEffect(() => {
     setDeck(getDeckOfCards());
   }, []);
-  let cards = deck.map((item, i) => (
+
+  const cards = deck.map((item, i) => (
     <Card
       key={i}
       number={item}
@@ -45,4 +44,5 @@ const CardList = () => {
 
   return <div className="card-list">{cards}</div>;
 };
+
 export default CardList;

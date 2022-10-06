@@ -1,4 +1,4 @@
-.card{
+.card {
   height: 104px;
   width: 80px;
   display: flex;
@@ -8,17 +8,20 @@
   border-radius: 8px;
   transition: box-shadow  0.3s,border-color 0.3s;
 }
-.card__select{
+
+.card__select {
   border: 0.5px solid #ED5517;
 }
-.card__visible{
+
+.card__visible {
   border: 1px solid #0A0A0C;
 }
-.card__number{
+
+.card__number {
   font-weight: 700;
 }
-.card:hover{ 
+
+.card:hover { 
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  
 }
