@@ -1,0 +1,7 @@
+:root{
+  --color-border-def:#CDCDCD;
+  --color-border-select-card:#ED5517;
+  --color-border-visible:#0A0A0C;
+  --color-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  --font:"Poppins"
+}

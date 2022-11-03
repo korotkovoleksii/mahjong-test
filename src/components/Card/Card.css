@@ -4,17 +4,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.5px solid #CDCDCD;
+  border: 0.5px solid var(--color-border-def);
   border-radius: 8px;
   transition: box-shadow  0.3s,border-color 0.3s;
 }
 
 .card__select {
-  border: 0.5px solid #ED5517;
+  border: 0.5px solid var(--color-border-select-card);
 }
 
 .card__visible {
-  border: 1px solid #0A0A0C;
+  border: 1px solid var(--color-border-visible);
 }
 
 .card__number {
@@ -25,5 +25,5 @@
 
 .card:hover { 
   cursor: pointer;
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--color-shadow);
 }
