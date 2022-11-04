@@ -27,8 +27,6 @@ const CardList = () => {
     ) {
       setSelectedCardIndexes([...selectedCardIndexes, index]);
     }
-
-    console.log('hello');
   };
 
   useEffect(
