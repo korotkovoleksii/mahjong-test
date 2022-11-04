@@ -10,18 +10,12 @@ const CardList = () => {
   const [firstShowNumber, setFirstShowNumber] = useState(true);
 
   const getStyleCard = (index) => {
-    if (firstShowNumber) {
-      return 'show-number';
-    }
-    if (visibleCardIndexes.includes(index)) {
-      console.log(index, 'visible');
-      return 'visible';
-    }
-    if (selectedCardIndexes.includes(index)) {
-      console.log(index, 'select');
-      return 'select';
-    }
-    return 'hide';
+    return (
+      (firstShowNumber && 'show-number') ||
+      (visibleCardIndexes.includes(index) && 'visible') ||
+      (selectedCardIndexes.includes(index) && 'select') ||
+      'hide'
+    );
   };
 
   const handelSelectedCardIndexes = (index) => {
@@ -36,22 +30,21 @@ const CardList = () => {
 
     console.log('hello');
   };
+
   useEffect(
     function changeStateOfCard() {
-      if (
-        selectedCardIndexes.length === 2 &&
-        deck[selectedCardIndexes[0]] !== deck[selectedCardIndexes[1]]
-      ) {
-        setTimeout(() => {
+      if (selectedCardIndexes.length === 2) {
+        if (deck[selectedCardIndexes[0]] !== deck[selectedCardIndexes[1]]) {
+          setTimeout(() => {
+            setSelectedCardIndexes([]);
+          }, 500);
+        } else {
+          setVisibleCardIndexes([
+            ...visibleCardIndexes,
+            ...selectedCardIndexes,
+          ]);
           setSelectedCardIndexes([]);
-        }, 500);
-      }
-      if (
-        selectedCardIndexes.length === 2 &&
-        deck[selectedCardIndexes[0]] === deck[selectedCardIndexes[1]]
-      ) {
-        setVisibleCardIndexes([...visibleCardIndexes, ...selectedCardIndexes]);
-        setSelectedCardIndexes([]);
+        }
       }
     },
     [deck, selectedCardIndexes, visibleCardIndexes]
