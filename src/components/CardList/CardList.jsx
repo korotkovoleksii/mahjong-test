@@ -9,14 +9,11 @@ const CardList = () => {
   const [visibleCardIndexes, setVisibleCardIndexes] = useState([]);
   const [firstShowNumber, setFirstShowNumber] = useState(true);
 
-  const getStyleCard = (index) => {
-    return (
-      (firstShowNumber && 'show-number') ||
-      (visibleCardIndexes.includes(index) && 'visible') ||
-      (selectedCardIndexes.includes(index) && 'select') ||
-      'hide'
-    );
-  };
+  const getStyleCard = (index) =>
+    (firstShowNumber && 'show-number') ||
+    (visibleCardIndexes.includes(index) && 'visible') ||
+    (selectedCardIndexes.includes(index) && 'select') ||
+    'hide';
 
   const handelSelectedCardIndexes = (index) => {
     if (
