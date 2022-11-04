@@ -1,44 +1,76 @@
 import { useEffect, useState } from 'react';
-import Card from '../Card';
 import getDeckOfCards from '../../utils/makeDeckOfCard';
+import Card from '../Card';
 import './CardList.css';
 
 const CardList = () => {
   const [deck, setDeck] = useState([]);
-  const [selectCard, setSelectCard] = useState(null);
+  const [selectedCardIndexes, setSelectedCardIndexes] = useState([]);
+  const [visibleCardIndexes, setVisibleCardIndexes] = useState([]);
+  const [firstShowNumber, setFirstShowNumber] = useState(true);
 
-  const getSelectCard = ({ number, handleVisible }) => {
-    handleVisible('select');
-    const { number: selectCardNumber, handleVisible: selectCardHV } =
-      selectCard || {};
-
-    if (selectCard) {
-      if (selectCardNumber !== number) {
-        setTimeout(() => {
-          handleVisible('hide');
-          selectCardHV('hide');
-        }, 500);
-        setSelectCard(null);
-      } else {
-        handleVisible('visible');
-        selectCardHV('visible');
-        setSelectCard(null);
-      }
-    } else {
-      setSelectCard({ number, handleVisible });
+  const getStyleCard = (index) => {
+    if (firstShowNumber) {
+      return 'show-number';
     }
+    if (visibleCardIndexes.includes(index)) {
+      console.log(index, 'visible');
+      return 'visible';
+    }
+    if (selectedCardIndexes.includes(index)) {
+      console.log(index, 'select');
+      return 'select';
+    }
+    return 'hide';
   };
 
-  useEffect(() => {
+  const handelSelectedCardIndexes = (index) => {
+    if (
+      !selectedCardIndexes.includes(index) &&
+      !visibleCardIndexes.includes(index) &&
+      !firstShowNumber &&
+      selectedCardIndexes.length < 2
+    ) {
+      setSelectedCardIndexes([...selectedCardIndexes, index]);
+    }
+
+    console.log('hello');
+  };
+  useEffect(
+    function changeStateOfCard() {
+      if (
+        selectedCardIndexes.length === 2 &&
+        deck[selectedCardIndexes[0]] !== deck[selectedCardIndexes[1]]
+      ) {
+        setTimeout(() => {
+          setSelectedCardIndexes([]);
+        }, 500);
+      }
+      if (
+        selectedCardIndexes.length === 2 &&
+        deck[selectedCardIndexes[0]] === deck[selectedCardIndexes[1]]
+      ) {
+        setVisibleCardIndexes([...visibleCardIndexes, ...selectedCardIndexes]);
+        setSelectedCardIndexes([]);
+      }
+    },
+    [deck, selectedCardIndexes, visibleCardIndexes]
+  );
+
+  useEffect(function showFirstTimeInStartGame() {
     setDeck(getDeckOfCards());
+    setTimeout(() => {
+      setFirstShowNumber(false);
+    }, 5000);
   }, []);
 
-  const cards = deck.map((item, i) => (
+  const cards = deck.map((item, index) => (
     <Card
-      key={i}
+      key={index}
+      index={index}
       number={item}
-      getSelectCard={getSelectCard}
-      visibleNumber={true}
+      style={getStyleCard(index)}
+      selectCard={handelSelectedCardIndexes}
     />
   ));
 
