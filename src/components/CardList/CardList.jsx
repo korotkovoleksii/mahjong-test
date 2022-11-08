@@ -26,26 +26,20 @@ const CardList = () => {
     }
   };
 
-  useEffect(
-    function changeStateOfCard() {
-      if (selectedCardIndexes.length === 2) {
-        if (deck[selectedCardIndexes[0]] !== deck[selectedCardIndexes[1]]) {
-          setTimeout(() => {
-            setSelectedCardIndexes([]);
-          }, 500);
-        } else {
-          setVisibleCardIndexes([
-            ...visibleCardIndexes,
-            ...selectedCardIndexes,
-          ]);
+  useEffect(() => {
+    if (selectedCardIndexes.length === 2) {
+      if (deck[selectedCardIndexes[0]] !== deck[selectedCardIndexes[1]]) {
+        setTimeout(() => {
           setSelectedCardIndexes([]);
-        }
+        }, 500);
+      } else {
+        setVisibleCardIndexes([...visibleCardIndexes, ...selectedCardIndexes]);
+        setSelectedCardIndexes([]);
       }
-    },
-    [deck, selectedCardIndexes, visibleCardIndexes]
-  );
+    }
+  }, [deck, selectedCardIndexes, visibleCardIndexes]);
 
-  useEffect(function showFirstTimeInStartGame() {
+  useEffect(() => {
     setDeck(getDeckOfCards());
     setTimeout(() => {
       setFirstShowNumber(false);
