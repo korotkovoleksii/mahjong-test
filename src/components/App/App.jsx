@@ -1,5 +1,5 @@
 import './App.css';
-import CardList from '../CardList/CardList';
+import CardList from '../CardList';
 function App() {
   return (
     <div className="app">
