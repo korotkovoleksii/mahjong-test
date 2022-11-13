@@ -1,6 +1,8 @@
-const shuffle = (array) => [...array.sort(() => Math.random() - 0.5)];
+const shuffle = (array: number[]): number[] => [
+  ...array.sort(() => Math.random() - 0.5),
+];
 
-const getDeckOfCards = () => {
+const getDeckOfCards = (): number[] => {
   //get array with prime numbers 0 to 60
   const arrPrime = Array.from({ length: 60 }, (_, i) => i + 1).filter(
     (item) => {
