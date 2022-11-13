@@ -4,18 +4,18 @@ import Card from '../Card';
 import './CardList.css';
 
 const CardList = () => {
-  const [deck, setDeck] = useState([]);
-  const [selectedCardIndexes, setSelectedCardIndexes] = useState([]);
-  const [visibleCardIndexes, setVisibleCardIndexes] = useState([]);
+  const [deck, setDeck] = useState<number[]>([]);
+  const [selectedCardIndexes, setSelectedCardIndexes] = useState<number[]>([]);
+  const [visibleCardIndexes, setVisibleCardIndexes] = useState<number[]>([]);
   const [firstShowNumber, setFirstShowNumber] = useState(true);
 
-  const getStyleCard = (index) =>
+  const getStyleCard = (index: number): string =>
     (firstShowNumber && 'show-number') ||
     (visibleCardIndexes.includes(index) && 'visible') ||
     (selectedCardIndexes.includes(index) && 'select') ||
     'hide';
 
-  const handelSelectedCardIndexes = (index) => {
+  const handelSelectedCardIndexes = (index: number): void => {
     if (
       !selectedCardIndexes.includes(index) &&
       !visibleCardIndexes.includes(index) &&
@@ -50,7 +50,7 @@ const CardList = () => {
     <Card
       key={index}
       index={index}
-      number={item}
+      visibleNumber={item}
       style={getStyleCard(index)}
       selectCard={handelSelectedCardIndexes}
     />
