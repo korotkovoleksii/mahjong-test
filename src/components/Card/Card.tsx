@@ -1,11 +1,5 @@
 import './Card.css';
-
-interface ICardItemProps {
-  index: number;
-  visibleNumber: number;
-  style: string;
-  selectCard: (index: number) => void;
-}
+import { ICardItemProps } from '../../types';
 
 const Card = ({ index, visibleNumber, style, selectCard }: ICardItemProps) => {
   return (
