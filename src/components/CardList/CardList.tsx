@@ -3,7 +3,7 @@ import getDeckOfCards from '../../utils/makeDeckOfCard';
 import Card from '../Card';
 import './CardList.css';
 
-const CardList = () => {
+const CardList = (): JSX.Element => {
   const [deck, setDeck] = useState<number[]>([]);
   const [selectedCardIndexes, setSelectedCardIndexes] = useState<number[]>([]);
   const [visibleCardIndexes, setVisibleCardIndexes] = useState<number[]>([]);
