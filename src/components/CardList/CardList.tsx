@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { StyleLiteral } from '../../types';
 import getDeckOfCards from '../../utils/makeDeckOfCard';
 import Card from '../Card';
 import './CardList.css';
@@ -9,7 +10,7 @@ const CardList = (): JSX.Element => {
   const [visibleCardIndexes, setVisibleCardIndexes] = useState<number[]>([]);
   const [firstShowNumber, setFirstShowNumber] = useState(true);
 
-  const getStyleCard = (index: number): string =>
+  const getStyleCard = (index: number): StyleLiteral =>
     (firstShowNumber && 'show-number') ||
     (visibleCardIndexes.includes(index) && 'visible') ||
     (selectedCardIndexes.includes(index) && 'select') ||
