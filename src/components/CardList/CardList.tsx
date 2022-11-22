@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
+import { StyleTitles } from '../../types';
 import getDeckOfCards from '../../utils/makeDeckOfCard';
 import Card from '../Card';
 import './CardList.css';
 
-const CardList = () => {
-  const [deck, setDeck] = useState([]);
-  const [selectedCardIndexes, setSelectedCardIndexes] = useState([]);
-  const [visibleCardIndexes, setVisibleCardIndexes] = useState([]);
+const CardList = (): JSX.Element => {
+  const [deck, setDeck] = useState<number[]>([]);
+  const [selectedCardIndexes, setSelectedCardIndexes] = useState<number[]>([]);
+  const [visibleCardIndexes, setVisibleCardIndexes] = useState<number[]>([]);
   const [firstShowNumber, setFirstShowNumber] = useState(true);
 
-  const getStyleCard = (index) =>
-    (firstShowNumber && 'show-number') ||
-    (visibleCardIndexes.includes(index) && 'visible') ||
-    (selectedCardIndexes.includes(index) && 'select') ||
-    'hide';
+  const getStyleCard = (index: number): StyleTitles =>
+    (firstShowNumber && StyleTitles.ShowNumber) ||
+    (visibleCardIndexes.includes(index) && StyleTitles.Visible) ||
+    (selectedCardIndexes.includes(index) && StyleTitles.Select) ||
+    StyleTitles.Hide;
 
-  const handelSelectedCardIndexes = (index) => {
+  const handelSelectedCardIndexes = (index: number): void => {
     if (
       !selectedCardIndexes.includes(index) &&
       !visibleCardIndexes.includes(index) &&
@@ -50,7 +51,7 @@ const CardList = () => {
     <Card
       key={index}
       index={index}
-      number={item}
+      visibleNumber={item}
       style={getStyleCard(index)}
       selectCard={handelSelectedCardIndexes}
     />

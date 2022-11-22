@@ -1,8 +1,10 @@
-const shuffle = (array) => [...array.sort(() => Math.random() - 0.5)];
+const shuffle = (array: number[]): number[] => [
+  ...array.sort(() => Math.random() - 0.5),
+];
 
-const getDeckOfCards = () => {
+const getDeckOfCards = (): number[] => {
   //get array with prime numbers 0 to 60
-  const arrPrime = Array.from({ length: 60 }, (_, i) => i + 1).filter(
+  const arrPrime: number[] = Array.from({ length: 60 }, (_, i) => i + 1).filter(
     (item) => {
       if (item === 1) {
         return false;
@@ -17,7 +19,7 @@ const getDeckOfCards = () => {
   );
   // mix this array
   // i shuffle first time for remove random item, coz i don't want remove the same item every time
-  const selectNumbers = shuffle(arrPrime).slice(1);
+  const selectNumbers: number[] = shuffle(arrPrime).slice(1);
 
   return shuffle(selectNumbers.concat(selectNumbers));
 };
